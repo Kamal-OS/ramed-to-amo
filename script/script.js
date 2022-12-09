@@ -1,31 +1,24 @@
-let inputBox = document.getElementById('numero');
-let urlText = document.getElementById('url');
-let submitButton = document.getElementById('submit');
+const numberInput = document.querySelector("input");
+const generateBtn = document.querySelector("button");
 
-inputBox.onkeyup = () => {
-    let inputBase64 = btoa(inputBox.value);
-    urlText.href = "https://digital.cnss.ma/certificat_pipc/?" + inputBase64;
-    urlText.innerText = inputBase64;
-}
+numberInput.focus();
 
 // Prevent arrow keys to change input number
-inputBox.onkeydown = (e) => {
+numberInput.addEventListener("keydown", e => {
     if (e.key == "ArrowUp" || e.key == "ArrowDown") {
         e.preventDefault();
     }
+});
+
+generateBtn.addEventListener("click", e => {
+    e.preventDefault();
+    url = "https://digital.cnss.ma/certificat_pipc/?" + btoa(numberInput.value);
+    generateBtn.innerText = "Ouverture de l'URL...";
+    window.open(url, '_blank');
+    generateBtn.innerText = "Générer";
+});
+
+function fetchFile(url) {
 }
 
-let download = require("./download.pdf");
-submitButton.onclick = () => {
-    let url = 'https://digital.cnss.ma/certificat_pipc/get_document.php'
-    return fetch(url, {
-        method: 'GET',
-        headers: {
-            'Referer': 'https://digital.cnss.ma/certificat_pipc/?OTMyNzIyNzA0'
-        }
-    }).then(function(resp) {
-        return resp.blob();
-    }).then(function(blob) {
-        download(blob);
-    })
-}
+

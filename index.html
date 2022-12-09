@@ -2,20 +2,25 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="KamalOS">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAMED to AMO</title>
     <link rel="stylesheet" href="style/style.css">
+    <meta name="author" content="KamalOS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <body>
-    <div id="input_field">
-        <form>
-            <label for="numero">Numéro:</label><br>
-            <input type="number" id="numero" inputmode="numeric" /><br>
-            <span>Direct link: <a href="#" id="url"></a></span><br>
-            <input type="button" id="submit" value="Submit" />
+    <div class="wrapper">
+        <header>
+            <h1>RAMED → AMO</h1>
+            <p>Tapez votre numéro d'inscription.<br>Cet outil générera la page de téléchargement.</p>
+        </header>
+        <form action="#">
+            <input type="number" placeholder="Taper N° d'inscription" required>
+            <button>Générer</button>
         </form>
+    </div>
+
+    <div class="signature">
+        <p>Made with <span class="heart">❤</span> by <span style="color: darkblue;"><b>KamalOS</b></span>.</p>
     </div>
 
     <script src="script/script.js"></script>
