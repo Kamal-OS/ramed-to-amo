@@ -2,37 +2,64 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>RAMED to AMO</title>
-    <link rel="stylesheet" href="style/style.css">
-    <meta name="author" content="KamalOS">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Utility</title>
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css" defer>
+    
+    <!-- My JS -->
+    <script src="script.js" defer></script>
 </head>
+
 <body>
-    <div class="wrapper">
-        <header>
-            <h1>RAMED → AMO</h1>
-            <p>Tapez votre numéro d'inscription.<br>Cet outil générera la page de téléchargement.</p>
-        </header>
-        <form action="#">
-            <input type="number" placeholder="Taper N° d'inscription" required>
-            <button>Générer</button>
-        </form>
-        <div class="help">
-            <p>Pour récupérer le N° et activer le compte:<br>
-                    <a href="https://www.macnss.ma/" style="color: lightblue;margin-top: 10px;font-size: 25px;">
-                        <b>macsnss.ma</b>
-                    </a>
-                    <br>
-                    <b style="margin-top: 10px;font-size: 25px;">05 20 44 71 00</b>
-                </span>
-            </p>
+
+    <main>
+        <div class="grid">
+            <article class="grid-child phone">
+                <h1>Numéro de Téléphone</h1>
+                <div id="phone-content">
+                    
+                </div>
+            </article>
+
+            <article class="grid-child amo">
+                <h1>RAMED → AMO</h1>
+                <div class="main-content">
+                    <p style="font-weight: 100;">Tapez votre numéro d'immatriculation.<br>Cet outil générera la page de téléchargement.</p>
+                    <form action="#">
+                        <input id="amo-input" type="text" placeholder="Taper votre N° d'immatriculation">
+                        <button id="amo-btn" disabled>Générer</button>
+                    </form>
+                </div>
+                <div class="amo-info">
+                    <p style="margin-bottom: 0; font-weight: 600;">Pour récupérer le N° et activer le compte:</p>
+                    <ul style="margin-top: 0;">
+                        <li>Site web: <a href="https://www.macnss.ma/">macnss.ma</a></li>
+                        <li>Répondeur: <b>05 20 44 71 00</b></li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="grid-child communes">
+                <h1>Les Communes</h1>
+                <div class="main-content">
+                    <p>Moteur de recherche de commune d'un KSAR.</p>
+                    <form>
+                        <input id="commune-input" type="text" placeholder="مثال (قصر اسرغين)">
+                        <button id="commune-btn" disabled>Recherche</button>
+                    </form>
+                </div>
+            </article>
         </div>
-    </div>
+    </main>
 
-    <div class="signature">
-        <p>Made with <span class="heart">❤</span> by <span style="color: darkblue;">KamalOS</span></p>
-    </div>
-
-    <script src="script/script.js"></script>
+    <footer>
+        <div>
+            Made with <span style="color: rgb(219, 142, 0)">❤</span> by <span style="color: darkblue;">KamalOS</span>
+        </div>
+    </footer> 
 </body>
+
 </html>

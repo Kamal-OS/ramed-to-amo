@@ -1,0 +1,262 @@
+:root {
+    --ff: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+    --main-height: 95vh;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    font-family: var(--ff);
+    font-size: clamp(1.5rem, .5vw + 1rem, 1rem);
+    background-image: linear-gradient(45deg, #045DE9, #09C6F9);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+footer {
+    display: grid;
+    place-content: center right;
+    padding-right: 1em;
+
+    background-color: lightblue;
+    color: black;
+    
+    font-family: Tahoma, serif;
+    font-size: 1rem;
+
+    box-shadow: 0 -5px 5px
+                rgba(0, 0, 0, .15);
+}
+
+h1 {
+    text-align: center;
+    line-height: 1em;
+    
+    padding: 1.5rem 1em;
+    margin-bottom: 1rem;
+
+    background-color: #1c4388;
+    color: rgb(255, 255, 255);
+
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, .3);
+}
+
+a {
+    color: cyan;
+    font-display: none;
+}
+
+.amo {
+    grid-area: amo;
+}
+.phone {
+    grid-area: phone;
+}
+.search {
+    grid-area: search;
+}
+
+.grid {
+    display: grid;
+    grid-template-areas:
+        'amo'
+        'search'
+        'phone';
+    grid-gap: 2rem;
+    grid-auto-columns: 1fr;
+
+    place-content: center;
+    padding: 1em 1.7em;
+}
+
+.grid-child {
+    --border-radius: 1rem;
+    background-color: lightcyan;
+    border-radius: var(--border-radius);
+    box-shadow: -10px 15px 15px
+                rgba(0, 0, 0, .25);
+    height: fit-content;
+}
+
+.amo-info {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    margin-bottom: 0;
+    background-color: #17376e;
+    color: white;
+    margin-top: 3rem;
+    padding: 1em;
+}
+
+.main-content *:not(input, button) {
+    padding: 0.75rem 1em;
+}
+
+form input {
+    outline: none;
+    font-size: 22px;
+    border: 1px solid #b3b2b2;
+    transition: 0.1s ease;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#amo-input {
+    padding: 0 1rem;
+    width: 100%;
+    height: 60px;
+}
+
+form input::placeholder {
+    color: #cdcdcd;
+}
+
+form input:focus {
+    box-shadow: 0 0px 5px rgba(0, 0, 0, .25);
+}
+
+#amo-btn {
+    width: 100%;
+    border: none;
+    opacity: 0.7;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-top: 0.75rem;
+    padding: 0.75em 0;
+    border-radius: 5px;
+    pointer-events: none;
+    background: #4285f4;
+    transition: opacity 0.15s ease;
+}
+
+/* form input:valid ~ button {
+    opacity: 1;
+    pointer-events: auto;
+} */
+
+/* @media only screen and (min-width: 45em) {
+    .grid {
+        display: flex;
+    }
+} */
+
+@media only screen and (min-width: 65em) {
+    body {
+        margin: 0;
+    }
+    
+    main {
+        height: var(--main-height);
+    }
+    
+    footer {
+        height: calc(100vh - var(--main-height));
+    }
+
+    .grid {
+        grid-template-areas:
+         'phone amo search';
+    }
+}
+
+
+/******
+Phone number
+*******/
+
+#phone-content {
+    margin-bottom: 2rem;
+}
+
+#phone-content button {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+#phone-content h2 {
+    margin: 2rem 1rem 0rem 1rem;
+    text-align: center;
+}
+
+#phone-content p {
+    padding: 0.5rem 0em;
+}
+
+#phone-content span {
+    background-color: lightgray;
+    border-radius: 0.3rem;
+    padding: 0.2em 0.75em;
+
+    text-decoration: none;
+    font-family: sans-serif;
+
+    color: black;
+    cursor: pointer;
+
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
+#phone-content span:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+#phone-content .methods {
+    display: grid;
+    place-content: center;
+}
+
+@media (min-width: 35em) {
+    /* #phone-content .methods {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    } */
+}
+
+/*******
+    Communes
+********/
+
+#commune-input {
+    padding: .5rem .5rem;
+    font-size: 1.25rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 65%;
+}
+
+#commune-btn {
+    padding: .5rem .5rem;
+
+    border: none;
+    opacity: 0.7;
+    outline: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    pointer-events: none;
+    background-color: #4285f4;
+    transition: opacity 0.15s ease;
+}
+
