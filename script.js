@@ -145,7 +145,11 @@ searchBtn.addEventListener('click', () => {
         .then((data) => {
             for (var i = 0; i < data.length; i += 2) {
                 targets = searchInput.value.split(" ")
-                console.log(targets)
+                targets.forEach(target => {
+                    if (data[i].search(target)) {
+                        
+                    }
+                })
             }
         });
 })
