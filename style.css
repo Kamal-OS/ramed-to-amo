@@ -23,10 +23,12 @@ select {
 
 body {
     font-family: var(--ff);
-    font-size: clamp(1.5rem, .5vw + 1rem, 1rem);
+    font-size: 1.275rem;
     background-image: linear-gradient(45deg, #045DE9, #09C6F9);
     background-repeat: no-repeat;
-    min-height: 100vh;
+
+    display: grid;
+    grid-template-rows: 95% auto;
 }
 
 footer {
@@ -81,7 +83,6 @@ a {
         'search'
         'phone';
     grid-gap: 2rem;
-    grid-auto-columns: 1fr;
 
     place-content: center;
     padding: 1em 1.7em;
@@ -94,6 +95,8 @@ a {
     box-shadow: -10px 15px 15px
                 rgba(0, 0, 0, .25);
     height: fit-content;
+
+    max-width: 500px;
 }
 
 .amo-info {
@@ -103,9 +106,10 @@ a {
     color: white;
     margin-top: 3rem;
     padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.main-content *:not(input, button) {
+.main-content {
     padding: 0.75rem 1em;
 }
 
@@ -118,6 +122,7 @@ form input {
 }
 
 #amo-input {
+    margin: 2rem 0 0 0;
     padding: 0 1rem;
     width: 100%;
     height: 60px;
@@ -161,15 +166,16 @@ form input:focus {
 @media only screen and (min-width: 65em) {
     body {
         margin: 0;
+        height: 100vh;
     }
     
-    main {
+    /* main {
         height: var(--main-height);
     }
     
     footer {
         height: calc(100vh - var(--main-height));
-    }
+    } */
 
     .grid {
         grid-template-areas:
@@ -182,25 +188,25 @@ form input:focus {
 Phone number
 *******/
 
-#phone-content {
+.phone .main-content {
     margin-bottom: 2rem;
 }
 
-#phone-content button {
+.phone .main-content button {
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
 }
 
-#phone-content h2 {
+.phone .main-content h2 {
     margin: 2rem 1rem 0rem 1rem;
     text-align: center;
 }
 
-#phone-content p {
+.phone .main-content p {
     padding: 0.5rem 0em;
 }
 
-#phone-content span {
+.phone .main-content span {
     background-color: lightgray;
     border-radius: 0.3rem;
     padding: 0.2em 0.75em;
@@ -218,17 +224,17 @@ Phone number
     -ms-user-select: none; /* IE10+ */
 }
 
-#phone-content span:hover {
+.phone .main-content span:hover {
     background-color: rgb(237, 237, 237);
 }
 
-#phone-content .methods {
+.phone .main-content .methods {
     display: grid;
     place-content: center;
 }
 
 @media (min-width: 35em) {
-    /* #phone-content .methods {
+    /* .phone .main-content .methods {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -239,14 +245,18 @@ Phone number
     Communes
 ********/
 
-#commune-input {
+.search-wrapper input {
+    position: absolute;
+    display: block;
+    margin: 1rem 0;
     padding: .5rem .5rem;
     font-size: 1.25rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 65%;
+    width: 100%;
+    direction: rtl !important;
 }
 
-#commune-btn {
+/* .search-wrapper button {
     padding: .5rem .5rem;
 
     border: none;
@@ -258,5 +268,38 @@ Phone number
     pointer-events: none;
     background-color: #4285f4;
     transition: opacity 0.15s ease;
+} */
+
+.search-result {
+    outline: black 1px solid;
+    text-align: center;
+    margin: 3rem 1rem 1rem 1rem;
+    padding: .5em .5em;
 }
 
+.autocomplete-items {
+    position: relative;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /* top: 65px; */
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+    background-color: dodgerblue !important;
+    color: #ffffff;
+}

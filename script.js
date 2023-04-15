@@ -92,7 +92,7 @@ let vendors = [
     }
 ]
 
-var phoneDiv = document.getElementById("phone-content")
+var phoneDiv = document.querySelector(".phone .main-content")
 
 for (var {vendor, name, methods, color} of vendors) {
     phoneDiv.innerHTML += `
@@ -125,31 +125,140 @@ phoneDiv.addEventListener('click', e => {
  * Moteur de recherche
  */
 
-const searchInput = document.getElementById("commune-input");
-const searchBtn = document.getElementById("commune-btn");
+// const searchInput = document.getElementById("commune-input");
+// const searchBtn = document.getElementById("commune-btn");
 
-searchInput.value = ""
+// searchInput.value = ""
 
-searchInput.addEventListener("input", () => {
-    if (searchInput.value != "") {
-        enableBtn(searchBtn)
-    }
-    else {
-        disableBtn(searchBtn)
-    }
-})
+// searchInput.addEventListener("input", () => {
+//     if (searchInput.value != "") {
+//         enableBtn(searchBtn)
+//     }
+//     else {
+//         disableBtn(searchBtn)
+//     }
+// })
 
-searchBtn.addEventListener('click', () => {
-    fetch('db/communes.json')
-        .then((response) => response.json())
-        .then((data) => {
-            for (var i = 0; i < data.length; i += 2) {
-                targets = searchInput.value.split(" ")
-                targets.forEach(target => {
-                    if (data[i].search(target)) {
+// searchBtn.addEventListener('click', () => {
+//     fetch('db/communes.json')
+//         .then((response) => response.json())
+//         .then((data) => {
+//             for (var i = 0; i < data.length; i += 2) {
+//                 targets = searchInput.value.split(" ")
+//                 targets.forEach(target => {
+//                     if (data[i].search(target)) {
                         
-                    }
+//                     }
+//                 })
+//             }
+//         });
+// })
+
+const searchInput = document.querySelector("#search")
+const resultDiv = document.querySelector("#result")
+
+function autocomplete(inp, arr) {
+    let currentFocus
+    inp.addEventListener('input', function(e) {
+        let a
+        let b
+        let i
+        let val = this.value
+        
+        closeAllLists()
+
+        if (!val) { return false;}
+        
+        currentFocus = -1
+
+        a = document.createElement('DIV')
+        a.setAttribute('id', this.id + "autocomplete-list")
+        a.setAttribute('class', "autocomplete-items")
+        this.parentNode.appendChild(a)
+
+        for (i = 0; i < arr.length; i++) {
+            const matchPos = arr[i].toLowerCase().search(val.toLowerCase())
+            if (matchPos !== -1) {
+                b = document.createElement("DIV")
+                
+                b.innerHTML = arr[i].slice(0, matchPos)
+                b.innerHTML += "</strong>" + arr[i].slice(matchPos, matchPos + val.length) + "</strong>"
+                b.innerHTML += arr[i].slice(matchPos + val.length)
+                b.innerHTML += `<input type="hidden" value="${arr[i]}">`
+
+                b.addEventListener('click', function(e) {
+                    inp.value = this.getElementsByTagName('input')[0].value
+                    closeAllLists()
                 })
+
+                a.appendChild(b)
             }
-        });
-})
+        }
+    })
+
+    inp.addEventListener('keydown', function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list")
+        if (x) x = x.getElementsByTagName('div')
+        
+        // Arrow Down key is pressed
+        if (e.keyCode == 40) {
+            e.preventDefault()
+            currentFocus++
+            addActive(x)
+        }
+        // Up
+        else if (e.keyCode == 38) {
+            e.preventDefault()
+            currentFocus--
+            addActive(x)
+        }
+        // Enter
+        else if (e.keyCode == 13) {
+            e.preventDefault()
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click()
+            }
+        }
+
+    })
+
+    function addActive(x) {
+        if (!x || x.length <= 0) return false
+
+        removeActive(x)
+
+        if (currentFocus >= x.length) currentFocus = 0
+        if (currentFocus < 0) currentFocus = (x.length - 1)
+
+        x[currentFocus].classList.add("autocomplete-active")
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active")
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items")
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i])
+            }
+        }
+    }
+
+    // when click somewhere
+    // close all lists
+    // except the one we clicked on
+    document.addEventListener('click', function (e) {
+        closeAllLists(e.target)
+    })
+}
+
+let data = await fetch('./communes.json')
+    .then((response) => response.json())
+    .then((json) => json);
+
+autocomplete(searchInput, data)
+

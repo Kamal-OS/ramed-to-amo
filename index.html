@@ -7,10 +7,10 @@
     <title>Library Utility</title>
 
     <!-- My CSS -->
-    <link rel="stylesheet" href="style.css" defer>
+    <link rel="stylesheet" href="style.css">
     
     <!-- My JS -->
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -19,9 +19,7 @@
         <div class="grid">
             <article class="grid-child phone">
                 <h1>Numéro de Téléphone</h1>
-                <div id="phone-content">
-                    
-                </div>
+                <div class="main-content"></div>
             </article>
 
             <article class="grid-child amo">
@@ -34,7 +32,7 @@
                     </form>
                 </div>
                 <div class="amo-info">
-                    <p style="margin-bottom: 0; font-weight: 600;">Pour récupérer le N° et activer le compte:</p>
+                    <p style="margin-bottom: 0;">Pour récupérer le N° et activer le compte:</p>
                     <ul style="margin-top: 0;">
                         <li>Site web: <a href="https://www.macnss.ma/">macnss.ma</a></li>
                         <li>Répondeur: <b>05 20 44 71 00</b></li>
@@ -45,11 +43,15 @@
             <article class="grid-child communes">
                 <h1>Les Communes</h1>
                 <div class="main-content">
-                    <p>Moteur de recherche de commune d'un KSAR.</p>
-                    <form>
-                        <input id="commune-input" type="text" placeholder="مثال (قصر اسرغين)">
-                        <button id="commune-btn" disabled>Recherche</button>
-                    </form>
+                    <div class="search-wrapper">
+                        <p>Moteur de recherche de commune d'un KSAR.</p>
+                        <label for="search">Entrer un KSAR:</label>
+                        <input id="search" type="search" placeholder="مثال (قصر مزكيدة)">
+                        <!-- <button id="search-btn" disabled>Recherche</button> -->
+                    </div>
+                    <div class="search-result">
+                        <div id="result">بني محمد سجلماسة</div>
+                    </div>
                 </div>
             </article>
         </div>
