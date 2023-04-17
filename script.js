@@ -15,7 +15,7 @@ function enableBtn(btn) {
 }
 
 function disableBtn(btn) {
-    btn.style = 0.7
+    btn.style = 0.5
     btn.style.pointerEvents = "none"
     btn.disabled = true
 }
@@ -23,15 +23,17 @@ function disableBtn(btn) {
 // Prevent arrow keys to change input number
 // Restricts input for the given textbox to the given inputFilter function.
 function setInputFilter(btn, textbox, inputFilter, inputLength) {
+    let escapeLength = false;
+    if (!inputLength) escapeLength = true;
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function (event) {
         textbox.addEventListener(event, function (e) {
-            if (inputFilter(this.value) && Number(textbox.value.length) <= inputLength) {
+            if (inputFilter(this.value) && (escapeLength || Number(textbox.value.length) <= inputLength)) {
                 // Accepted value.
                 this.oldValue = this.value;
                 this.oldSelectionStart = this.selectionStart;
                 this.oldSelectionEnd = this.selectionEnd;
 
-                if (inputLength == -1 || textbox.value.length == inputLength) {
+                if ((escapeLength && textbox.value.length >= 1) || textbox.value.length >= inputLength) {
                     enableBtn(btn)
                 }
                 else {
@@ -262,3 +264,71 @@ let data = await fetch('./communes.json')
 
 autocomplete(searchInput, data)
 
+
+/***
+ * RNP
+ */
+
+const rnpInput = document.querySelector("#rnp-input")
+const rnpSubmit = document.querySelector("#rnp-submit")
+
+rnpInput.value = ""
+
+rnpInput.addEventListener("input", () => {
+    if (rnpInput.value != "") {
+        enableBtn(rnpSubmit)
+    }
+    else {
+        disableBtn(rnpSubmit)
+    }
+})
+
+setInputFilter(rnpSubmit, rnpInput, function (value) {
+    return /^\d*?\d*$/.test(value); // Allow digits and '.' only, using a RegExp.
+}, 14)
+
+rnpSubmit.addEventListener("click", e => {
+    e.preventDefault();
+    const url = rnpSelect.value.replace('11111111111111', rnpInput.value);
+    window.open(url, '_blank');
+    numberInput.setSelectionRange(0, numberInput.value.length)
+});
+
+const array = [
+    {
+        name: "البيانات الديموغرافية",
+        url: "https://www.rnp.ma/pre-registration-ui/#/ara/pre-registration/demographic/11111111111111"
+    },
+    {
+        name: "تحميل الوثائق",
+        url: "https://www.rnp.ma/pre-registration-ui/#/ara/pre-registration/file-upload/11111111111111"
+    },
+    {
+        name: "مراجعة البيانات",
+        url: "https://www.rnp.ma/pre-registration-ui/#/ara/pre-registration/summary/11111111111111/preview"
+    },
+    {
+        name: "حجز موعد",
+        url: "https://www.rnp.ma/pre-registration-ui/#/ara/pre-registration/booking/11111111111111/pick-center"
+    },
+    {
+        name: "تأكيد",
+        url: "https://www.rnp.ma/pre-registration-ui/#/ara/pre-registration/summary/11111111111111/acknowledgement"
+    },
+]
+
+const rnpSelect = document.querySelector("#rnp-links")
+
+function setRNPSelection(select, array) {
+    
+    for (const [index, item] of array.entries()) {
+        const option = document.createElement("option")
+        option.value = item.url
+
+        option.innerText = `المرحلة ${index + 1} - ${item.name}`
+        select.appendChild(option)
+    }
+}
+
+setRNPSelection(rnpSelect, array)
+rnpSelect.value = array[1].url

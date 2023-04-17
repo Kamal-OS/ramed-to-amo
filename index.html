@@ -27,7 +27,7 @@
                 <div class="main-content">
                     <p style="font-weight: 100;">Tapez votre numéro d'immatriculation.<br>Cet outil générera la page de téléchargement.</p>
                     <form action="#">
-                        <input id="amo-input" type="text" placeholder="Taper votre N° d'immatriculation">
+                        <input id="amo-input" type="text" autocomplete="false" placeholder="Taper votre N° d'immatriculation">
                         <button id="amo-btn" disabled>Générer</button>
                     </form>
                 </div>
@@ -45,13 +45,25 @@
                 <div class="main-content">
                     <div class="search-wrapper">
                         <p>Moteur de recherche de commune d'un KSAR.</p>
-                        <label for="search">Entrer un KSAR:</label>
                         <input id="search" type="search" placeholder="مثال (قصر مزكيدة)">
                         <!-- <button id="search-btn" disabled>Recherche</button> -->
                     </div>
                     <div class="search-result">
                         <div id="result">بني محمد سجلماسة</div>
                     </div>
+                </div>
+            </article>
+
+            <article class="grid-child rnp">
+                <h1>تعديل استمارة السجل الوطني</h1>
+                <div class="main-content">
+                    <p>بعد تسجيل الدخول
+                        ل<a href="https://www.rnp.ma/pre-registration-ui/#/ara">موقع السجل الوطني</a>
+                        ، أدخل رقم الإستمارة:
+                    </p>
+                    <input id="rnp-input" type="text" placeholder="رقم الإستمارة">
+                    <select name="rnp-links" id="rnp-links"></select>
+                    <button id="rnp-submit" disabled>تعديل</button>
                 </div>
             </article>
         </div>
