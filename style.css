@@ -26,12 +26,13 @@ body {
     font-size: 1.3rem;
     background-image: linear-gradient(45deg, #045DE9, #09C6F9);
     background-repeat: no-repeat;
-
-    display: grid;
-    grid-template-rows: 95% auto;
+    min-height: 100vh;
 }
 
 footer {
+    position: sticky;
+    top: 100%;
+
     display: grid;
     place-content: center right;
     padding-right: 1em;
