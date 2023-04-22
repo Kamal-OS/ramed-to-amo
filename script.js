@@ -204,7 +204,10 @@ function autocomplete(inp, arr) {
                     b.addEventListener('click', function(e) {
                         const result = this.querySelectorAll('input')
                         inp.value = result[0].value
-                        resultDiv.innerText = result[1].value
+                        let resultToken = result[1].value
+                        const resultPos = resultToken.search("يقع")
+                        if (resultPos !== -1) resultToken = resultToken.slice(resultPos + 5, resultToken.search("،"))
+                        resultDiv.innerHTML = `<span style="font-weight: 600">${resultToken}</span>`
                         closeAllLists()
                     })
 
