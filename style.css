@@ -347,6 +347,7 @@ Phone number
 .rnp select {
     display: block;
     width: 100%;
+    height: 1.75em;
 }
 
 .rnp button {
