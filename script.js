@@ -190,6 +190,7 @@ function autocomplete(inp, arr) {
                 // and sort the list so results wich contains more tokens be first
                 const item = normalizeArabic(value[i])
                 const searchToken = normalizeArabic(inputValue)
+
                 const matchPos = item.toLowerCase().search(searchToken.toLowerCase())
                 if (matchPos !== -1) {
                     b = document.createElement("DIV")
@@ -273,12 +274,12 @@ function autocomplete(inp, arr) {
 
     function normalizeArabic(token) {
         let normToken = token
-        normToken = normToken.replace("أ", "ا")
-        normToken = normToken.replace("إ", "ا")
-        normToken = normToken.replace("آ", "ا")
-        normToken = normToken.replace("ي", "ى")
-        normToken = normToken.replace("ث", "ت")
-        normToken = normToken.replace("ذ", "د")
+        normToken = normToken.replaceAll("أ", "ا")
+        normToken = normToken.replaceAll("إ", "ا")
+        normToken = normToken.replaceAll("آ", "ا")
+        normToken = normToken.replaceAll("ث", "ت")
+        normToken = normToken.replaceAll("ذ", "د")
+        normToken = normToken.replaceAll("ي", "ى")
         return normToken
     }
 

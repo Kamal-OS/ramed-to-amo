@@ -36,6 +36,8 @@ footer {
     place-content: center right;
     padding-right: 1em;
 
+    height: 2em;
+
     background-color: lightblue;
     color: black;
     
@@ -167,27 +169,22 @@ form input:focus {
     }
 } */
 
-@media only screen and (min-width: 65em) {
-    body {
-        margin: 0;
-        height: 100vh;
-    }
-    
-    /* main {
-        height: var(--main-height);
-    }
-    
-    footer {
-        height: calc(100vh - var(--main-height));
-    } */
 
+@media only screen and (min-width: 50em) {
     .grid {
         grid-template-areas:
-         'phone amo search'
-         'phone amo rnp';
+            'phone amo'
+            'rnp search';
     }
 }
 
+@media only screen and (min-width: 80em) {
+    .grid {
+        grid-template-areas:
+            'phone amo search'
+            'phone amo rnp';
+    }
+}
 
 /******
 Phone number
