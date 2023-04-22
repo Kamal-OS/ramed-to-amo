@@ -159,17 +159,20 @@ phoneDiv.addEventListener('click', e => {
 const searchInput = document.querySelector("#search")
 const resultDiv = document.querySelector("#result")
 
+searchInput.value = ""
+
 function autocomplete(inp, arr) {
     let currentFocus
     inp.addEventListener('input', function(e) {
         let a
         let b
         let i
-        let val = this.value
-        
-        closeAllLists()
+        let inputValue = this.value
 
-        if (!val) { return false;}
+        closeAllLists()
+        resultDiv.innerText = "لا توجد نتائج."
+
+        if (!inputValue) { return false;}
         
         currentFocus = -1
 
@@ -178,22 +181,37 @@ function autocomplete(inp, arr) {
         a.setAttribute('class', "autocomplete-items")
         this.parentNode.appendChild(a)
 
-        for (i = 0; i < arr.length; i++) {
-            const matchPos = arr[i].toLowerCase().search(val.toLowerCase())
-            if (matchPos !== -1) {
-                b = document.createElement("DIV")
-                
-                b.innerHTML = arr[i].slice(0, matchPos)
-                b.innerHTML += "</strong>" + arr[i].slice(matchPos, matchPos + val.length) + "</strong>"
-                b.innerHTML += arr[i].slice(matchPos + val.length)
-                b.innerHTML += `<input type="hidden" value="${arr[i]}">`
+        for (const [key, value] of Object.entries(arr[0])) {
+            let isKsar = false
+            if (key === "القصور") isKsar = true
 
-                b.addEventListener('click', function(e) {
-                    inp.value = this.getElementsByTagName('input')[0].value
-                    closeAllLists()
-                })
+            for (i = 0; i < value.length; ++i) {
+                // TODO: search for each token in user input
+                // and sort the list so results wich contains more tokens be first
+                const item = normalizeArabic(value[i])
+                const searchToken = normalizeArabic(inputValue)
+                const matchPos = item.toLowerCase().search(searchToken.toLowerCase())
+                if (matchPos !== -1) {
+                    b = document.createElement("DIV")
+                    
+                    b.innerHTML = value[i].slice(0, matchPos)
+                    b.innerHTML += "<strong>" + value[i].slice(matchPos, matchPos + inputValue.length) + "</strong>"
+                    b.innerHTML += value[i].slice(matchPos + inputValue.length)
+                    b.innerHTML += `<input type="hidden" value="${value[i]}">`
+                    if (isKsar) b.innerHTML += `<input type="hidden" value="${value[i+1]}">`
+                    else b.innerHTML += `<input type="hidden" value="${key}">`
 
-                a.appendChild(b)
+                    b.addEventListener('click', function(e) {
+                        const result = this.querySelectorAll('input')
+                        inp.value = result[0].value
+                        resultDiv.innerText = result[1].value
+                        closeAllLists()
+                    })
+
+                    a.appendChild(b)
+                }
+
+                if (isKsar) ++i
             }
         }
     })
@@ -250,6 +268,17 @@ function autocomplete(inp, arr) {
         }
     }
 
+    function normalizeArabic(token) {
+        let normToken = token
+        normToken = normToken.replace("أ", "ا")
+        normToken = normToken.replace("إ", "ا")
+        normToken = normToken.replace("آ", "ا")
+        normToken = normToken.replace("ي", "ى")
+        normToken = normToken.replace("ث", "ت")
+        normToken = normToken.replace("ذ", "د")
+        return normToken
+    }
+
     // when click somewhere
     // close all lists
     // except the one we clicked on
@@ -260,7 +289,9 @@ function autocomplete(inp, arr) {
 
 let data = await fetch('./communes.json')
     .then((response) => response.json())
-    .then((json) => json);
+    .then((json) => {
+        return json
+    });
 
 autocomplete(searchInput, data)
 
