@@ -59,7 +59,7 @@ setInputFilter(generateBtn, numberInput, function (value) {
 
 generateBtn.addEventListener("click", e => {
     e.preventDefault();
-    url = "https://digital.cnss.ma/certificat_pipc/?" + btoa(numberInput.value);
+    const url = "https://digital.cnss.ma/certificat_pipc/?" + btoa(numberInput.value);
     generateBtn.innerText = "Ouverture de l'URL...";
     window.open(url, '_blank');
     generateBtn.innerText = "Générer";
