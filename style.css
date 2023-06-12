@@ -65,8 +65,11 @@ h1 {
 }
 
 a {
-    color: cyan;
     text-decoration: none;
+}
+
+.amo a {
+    color: cyan;
 }
 
 .amo {
